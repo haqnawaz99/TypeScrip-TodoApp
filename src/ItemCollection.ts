@@ -2,6 +2,7 @@ import { Item } from "./Item";
 
 export class ItemCollection{
     private nextId = 1;
+    private itemMap = new Map<number, Item>();
 
     constructor(public items: Item[] = []){
 
@@ -10,7 +11,12 @@ export class ItemCollection{
     public addTodo(task: string):void{
         let item: Item = new Item (this.nextId, task, false);
         this.nextId++;
-        this.items.push(item);  
+        this.items.push(item);
+        this.itemMap.set(this.nextId, new Item(this.nextId, task));  
+    }
+
+    getTodoById(id: number) : Item {
+    return this.itemMap.get(id);
     }
 
     public printAll():void{ 
